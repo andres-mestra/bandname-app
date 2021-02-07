@@ -7,7 +7,24 @@ export const BandList = ({ data }) => {
 
   React.useEffect(() => {
     setBands(data);
-  },[data])
+  }, [data])
+
+  const handleNameChange = ({ target }, id) => {
+    const newName = target.value;
+    setBands(bands => bands.map(band => {
+      if (band.id === id) {
+        band.name = newName;
+      }
+
+      return band
+    }))
+  }
+ 
+  //Se dispara cuando se pierde el foco
+  const handleOnBlur = (id, name) => {
+    console.log(id, name)
+    //TODO:disparar el evento de socket
+  }
 
   return (
     <>
@@ -23,8 +40,15 @@ export const BandList = ({ data }) => {
         </thead>
         <tbody>
           {
-            bands.map( band => {
-              return <BandItem band={band} key={band.id} />
+            bands.map(band => {
+              return (
+                <BandItem
+                  key={band.id}
+                  band={band}
+                  handleNameChange={handleNameChange}
+                  handleOnBlur={handleOnBlur}
+                />
+              )
             })
           }
         </tbody>
