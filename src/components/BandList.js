@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { BandItem } from './BandItem'
 
-export const BandList = ({ data, votar, deleteBand }) => {
+export const BandList = ({ data, votar, deleteBand, changeName }) => {
 
   const [bands, setBands] = React.useState(data)
 
@@ -22,8 +22,7 @@ export const BandList = ({ data, votar, deleteBand }) => {
  
   //Se dispara cuando se pierde el foco
   const handleOnBlur = (id, name) => {
-    console.log(id, name)
-    //TODO:disparar el evento de socket
+    changeName( id, name )
   }
 
   return (
