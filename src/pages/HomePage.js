@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-import { SocketContext } from './context/SocketContext'
-import { BandAdd } from './components/BandAdd'
-import { BandList } from './components/BandList'
+import { SocketContext } from '../context/SocketContext'
+import { BandAdd } from '../components/BandAdd'
+import { BandList } from '../components/BandList'
 
 
 function HomePage() {
