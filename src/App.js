@@ -15,7 +15,19 @@ function App() {
     setOnline(socket.connected)
   }, [socket])
 
+  React.useEffect(() => {
+    socket.on('connect', () => {
+      setOnline(true)
+    })
 
+  }, [socket])
+
+  React.useEffect(() => {
+    socket.on('disconnect', () => {
+      setOnline(false)
+    })
+  }, [socket])
+  
   return (
     <div className="container">
       <div className="alert">
