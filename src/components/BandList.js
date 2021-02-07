@@ -1,29 +1,22 @@
 import * as React from 'react'
+import { SocketContext } from '../context/SocketContext'
 import { BandItem } from './BandItem'
 
-export const BandList = ({ data, votar, deleteBand, changeName }) => {
+export const BandList = () => {
 
-  const [bands, setBands] = React.useState(data)
-
+  const { socket } = React.useContext(SocketContext)
+  const [bands, setBands] = React.useState([])
+  
   React.useEffect(() => {
-    setBands(data);
-  }, [data])
+    socket.on('current-bands', (bands) => {
+      setBands(bands)
+    })
 
-  const handleNameChange = ({ target }, id) => {
-    const newName = target.value;
-    setBands(bands => bands.map(band => {
-      if (band.id === id) {
-        band.name = newName;
-      }
-
-      return band
-    }))
-  }
- 
-  //Se dispara cuando se pierde el foco
-  const handleOnBlur = (id, name) => {
-    changeName( id, name )
-  }
+    return () => {
+      socket.off('current-bands');
+    }
+    
+  },[socket])
 
   return (
     <>
@@ -43,11 +36,7 @@ export const BandList = ({ data, votar, deleteBand, changeName }) => {
               return (
                 <BandItem
                   key={band.id}
-                  band={band}
-                  handleNameChange={handleNameChange}
-                  handleOnBlur={handleOnBlur}
-                  votar={ votar }
-                  deleteBand= { deleteBand }
+                  {...band}
                 />
               )
             })
