@@ -1,6 +1,12 @@
 import * as React from 'react'
 
-export const BandItem = ({ band, handleNameChange, handleOnBlur, votar }) => {
+export const BandItem = ({ 
+  band, 
+  handleNameChange, 
+  handleOnBlur, 
+  votar,
+  deleteBand
+}) => {
 
   const { id, name, votes } = band
 
@@ -27,6 +33,7 @@ export const BandItem = ({ band, handleNameChange, handleOnBlur, votar }) => {
       <td>
         <button
           className="btn btn-danger"
+          onClick={() => deleteBand(id) }
         >
           Borrar
         </button>
