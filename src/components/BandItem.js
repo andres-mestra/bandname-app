@@ -13,14 +13,16 @@ export const BandItem = ({ id, name, votes }) => {
   
   const handleNameChange = ({ target }) => {
     const newName = target.value;
-
-    if( newName.trim().length > 0 ){
-      setValue(newName);
-    }
+    setValue(newName);
   }
  
   //Se dispara cuando se pierde el foco
-  const handleOnBlur = () => socket.emit('change-name-banda', {id, name: value })
+  const handleOnBlur = () => {
+    
+    if( value.trim().length > 0 ){
+      socket.emit('change-name-banda', {id, name: value })
+    }
+  }
 
   return (
     <tr>
