@@ -1,34 +1,15 @@
 import * as React from 'react'
 
-import { connectSocketServer } from './helpers/connectSocketServer';
+import { useSocket } from './hooks/useSocket'
 import { BandAdd } from './components/BandAdd'
 import { BandList } from './components/BandList'
 
 
 function App() {
 
-  const [socket] = React.useState(connectSocketServer);
-  const [online, setOnline] = React.useState(false);
   const [bands, setBands] = React.useState([])
-
-
-  React.useEffect(() => {
-    setOnline(socket.connected)
-  }, [socket])
-
-  React.useEffect(() => {
-    socket.on('connect', () => {
-      setOnline(true)
-    })
-
-  }, [socket])
-
-  React.useEffect(() => {
-    socket.on('disconnect', () => {
-      setOnline(false)
-    })
-  }, [socket])
-
+  const { socket, online } = useSocket('http://localhost:8080')
+  
   React.useEffect(() => {
     socket.on('current-bands', (bands) => {
       setBands(bands)
