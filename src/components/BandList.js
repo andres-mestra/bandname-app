@@ -1,33 +1,13 @@
 import * as React from 'react'
+import { BandItem } from './BandItem'
 
-export const BandList = () => {
+export const BandList = ({ data }) => {
 
+  const [bands, setBands] = React.useState(data)
 
-  const createRows = () => {
-    return (
-      <tr>
-        <td>
-          <button className="btn btn-primary"
-          >
-            +1
-          </button>
-        </td>
-        <td>
-          <input
-            className="form-control"
-          />
-        </td>
-        <td><h3> 15 </h3></td>
-        <td>
-          <button
-            className="btn btn-danger"
-          >
-            Borrar
-          </button>
-        </td>
-      </tr>
-    )
-  }
+  React.useEffect(() => {
+    setBands(data);
+  },[data])
 
   return (
     <>
@@ -42,7 +22,11 @@ export const BandList = () => {
           </tr>
         </thead>
         <tbody>
-          {createRows()}
+          {
+            bands.map( band => {
+              return <BandItem band={band} key={band.id} />
+            })
+          }
         </tbody>
       </table>
     </>

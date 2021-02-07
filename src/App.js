@@ -9,6 +9,7 @@ function App() {
 
   const [socket] = React.useState(connectSocketServer);
   const [online, setOnline] = React.useState(false);
+  const [bands, setBands] = React.useState([])
 
 
   React.useEffect(() => {
@@ -27,6 +28,12 @@ function App() {
       setOnline(false)
     })
   }, [socket])
+
+  React.useEffect(() => {
+    socket.on('current-bands', (bands) => {
+      setBands(bands)
+    })
+  },[socket])
   
   return (
     <div className="container">
@@ -49,7 +56,9 @@ function App() {
         </div>
 
         <div className="col-sm-12 col-lg-8">
-          <BandList />
+          <BandList 
+            data={ bands }
+          />
         </div>
       </div>
 
