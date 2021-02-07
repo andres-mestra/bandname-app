@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { BandItem } from './BandItem'
 
-export const BandList = ({ data }) => {
+export const BandList = ({ data, votar }) => {
 
   const [bands, setBands] = React.useState(data)
 
@@ -47,6 +47,7 @@ export const BandList = ({ data }) => {
                   band={band}
                   handleNameChange={handleNameChange}
                   handleOnBlur={handleOnBlur}
+                  votar={ votar }
                 />
               )
             })

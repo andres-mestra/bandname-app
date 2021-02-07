@@ -1,13 +1,15 @@
 import * as React from 'react'
 
-export const BandItem = ({ band, handleNameChange, handleOnBlur }) => {
+export const BandItem = ({ band, handleNameChange, handleOnBlur, votar }) => {
 
   const { id, name, votes } = band
 
   return (
     <tr>
       <td>
-        <button className="btn btn-primary"
+        <button 
+          className="btn btn-primary"
+          onClick={() => votar( id )}
         >
           +1
         </button>
