@@ -3,13 +3,14 @@ import * as React from 'react'
 import { SocketContext } from '../context/SocketContext'
 import { BandAdd } from '../components/BandAdd'
 import { BandList } from '../components/BandList'
+import { BandChart } from '../components/BandChart'
 
 
 function HomePage() {
 
   const { online } = React.useContext(SocketContext)
 
-  
+
   return (
     <div className="container">
       <div className="alert">
@@ -26,13 +27,19 @@ function HomePage() {
       <hr />
 
       <div className="row">
+        <div className="col-sm-12 col-lg-7">
+          <BandChart />
+        </div>
+      </div>
+
+      <div className="row">
         <div className="col-sm-12 col-lg-4">
           <BandAdd />
         </div>
 
         <div className="col-sm-12 col-lg-8">
           <BandList />
-        </div> 
+        </div>
       </div>
 
 
