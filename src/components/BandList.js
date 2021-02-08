@@ -18,6 +18,25 @@ export const BandList = () => {
     
   },[socket])
 
+  const handleNameChange = ( id, name ) => {
+    setBands( ( bands ) => bands.map( band => {
+      if( band.id === id ){
+        band.name = name
+      }
+      return band
+    }))
+    
+  }
+
+  //Se dispara cuando se pierde el foco
+  const handleOnBlur = ( id, name ) => {
+    
+    if( name.trim().length > 0 ){
+      socket.emit('change-name-banda', { id, name })
+    }
+  }
+
+
   return (
     <>
       <h3>Bandas Actuales</h3>
@@ -36,6 +55,8 @@ export const BandList = () => {
               return (
                 <BandItem
                   key={band.id}
+                  nameChange={ handleNameChange }
+                  nameOnBlur={ handleOnBlur }
                   {...band}
                 />
               )

@@ -1,29 +1,15 @@
 import * as React from 'react'
 import { SocketContext } from '../context/SocketContext';
 
-export const BandItem = ({ id, name, votes }) => {
+export const BandItem = ({ id, name, votes, nameChange, nameOnBlur }) => {
 
   const { socket } = React.useContext(SocketContext);
-  const [value, setValue] = React.useState(name)
 
   const votar = () => socket.emit('votar-banda', id)
 
   const handleDeleteBand = () => socket.emit('delete-banda', id)
 
   
-  const handleNameChange = ({ target }) => {
-    const newName = target.value;
-    setValue(newName);
-  }
- 
-  //Se dispara cuando se pierde el foco
-  const handleOnBlur = () => {
-    
-    if( value.trim().length > 0 ){
-      socket.emit('change-name-banda', {id, name: value })
-    }
-  }
-
   return (
     <tr>
       <td>
@@ -38,9 +24,9 @@ export const BandItem = ({ id, name, votes }) => {
         <input
           className="form-control"
           name="name"
-          value={ value }
-          onChange={ handleNameChange }
-          onBlur={ handleOnBlur }
+          value={ name }
+          onChange={({ target }) => nameChange( id, target.value ) }
+          onBlur={() => nameOnBlur( id, name ) }
         />
       </td>
       <td><h3>{ votes }</h3></td>
